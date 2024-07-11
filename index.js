@@ -692,9 +692,10 @@ const backgrounds = {
     "Urchin": "You grew up on the streets, relying on your wits and strength to survive."
 };
 
+let currentQuestionIndex = 0;
+
 document.addEventListener('DOMContentLoaded', () => {
     loadQuiz();
-
     const backgroundMusic = document.getElementById('backgroundMusic');
     const playButton = document.getElementById('playMusicButton');
 
@@ -705,25 +706,50 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function loadQuiz() {
+    showQuestion(currentQuestionIndex);
+}
+
+function showQuestion(index) {
     const quizForm = document.getElementById('quizForm');
-    questions.forEach((q, index) => {
-        const questionDiv = document.createElement('div');
-        questionDiv.classList.add('question');
-        questionDiv.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
-        q.answers.forEach((answer, i) => {
-            questionDiv.innerHTML += `
-                <label>
-                    <input type="radio" name="question${index}" value='${JSON.stringify(answer.points)}' required>
-                    ${answer.text}
-                </label><br>`;
+    quizForm.innerHTML = ''; // Clear the previous question
+    const question = questions[index];
+    const questionDiv = document.createElement('div');
+    questionDiv.classList.add('question');
+    questionDiv.innerHTML = `<p>${index + 1}. ${question.question}</p>`;
+    question.answers.forEach((answer, i) => {
+        questionDiv.innerHTML += `
+            <label>
+                <input type="radio" name="question${index}" value='${JSON.stringify(answer.points)}' required>
+                ${answer.text}
+            </label><br>`;
+    });
+    quizForm.appendChild(questionDiv);
+
+    document.querySelectorAll('input[name="question' + index + '"]').forEach(element => {
+        element.addEventListener('change', () => {
+            document.getElementById('nextButton').style.display = 'inline-block';
         });
-        quizForm.appendChild(questionDiv);
     });
 
-    document.querySelectorAll('button, label').forEach(element => {
+    document.querySelectorAll('label').forEach(element => {
         element.addEventListener('mouseover', playHoverSound);
         element.addEventListener('click', playClickSound);
     });
+
+    if (index === questions.length - 1) {
+        document.getElementById('nextButton').style.display = 'none';
+        document.getElementById('submitButton').style.display = 'inline-block';
+    } else {
+        document.getElementById('nextButton').style.display = 'none';
+        document.getElementById('submitButton').style.display = 'none';
+    }
+}
+
+function nextQuestion() {
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion(currentQuestionIndex);
+    }
 }
 
 function submitQuiz() {
