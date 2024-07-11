@@ -26,11 +26,6 @@
             <source src="Background.mp3" type="audio/mp3">
             Your browser does not support the audio element.
         </audio>
-        <div id="audioControls">
-            <button id="muteMusicButton" onclick="toggleMute('music')">🎵</button>
-            <button id="muteSFXButton" onclick="toggleMute('sfx')">🔊</button>
-            <button id="playMusicButton">Play Music</button>
-        </div>
     </footer>
     
     <!-- Sound effects -->
@@ -42,6 +37,13 @@
         <source src="Hover.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
+    
+    <div id="audioControls">
+        <button id="muteMusicButton" onclick="toggleMute('music')">🎵</button>
+        <button id="muteSFXButton" onclick="toggleMute('sfx')">🔊</button>
+        <button id="playMusicButton">Play Music</button>
+    </div>
+
     <script src="index.js"></script>
 </body>
 </html>
