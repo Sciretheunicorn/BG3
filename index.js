@@ -698,6 +698,18 @@ document.addEventListener('DOMContentLoaded', () => {
     backgroundMusic.play();
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    loadQuiz();
+
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const playButton = document.getElementById('playMusicButton');
+
+    playButton.addEventListener('click', () => {
+        backgroundMusic.play();
+        playButton.style.display = 'none'; // Versteckt den Play-Button nach dem Klick
+    });
+});
+
 function loadQuiz() {
     const quizForm = document.getElementById('quizForm');
     questions.forEach((q, index) => {
