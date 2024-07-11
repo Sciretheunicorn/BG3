@@ -694,12 +694,6 @@ const backgrounds = {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadQuiz();
-    const backgroundMusic = document.getElementById('backgroundMusic');
-    backgroundMusic.play();
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    loadQuiz();
 
     const backgroundMusic = document.getElementById('backgroundMusic');
     const playButton = document.getElementById('playMusicButton');
