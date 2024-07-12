@@ -24,3 +24,5 @@ function createChart(canvasId, label, data) {
         }
     });
 }
+
+export { createChart };
