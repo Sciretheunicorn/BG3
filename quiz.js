@@ -1,4 +1,14 @@
+import { questions } from './questions.js';
+import { races, classes, subclasses, backgrounds } from './descriptions.js';
+import { createChart } from './charts.js';
+
 let currentQuestionIndex = 0;
+let score = {
+    race: {},
+    class: {},
+    subclass: {},
+    background: {}
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     loadQuiz();
@@ -60,28 +70,26 @@ function nextQuestion() {
 
 function submitQuiz() {
     const formData = new FormData(document.getElementById('quizForm'));
-    const results = { race: {}, class: {}, subclass: {}, background: {} };
-
     for (let [key, value] of formData.entries()) {
         const points = JSON.parse(value);
         for (const category in points) {
             for (const item in points[category]) {
-                if (!results[category][item]) {
-                    results[category][item] = 0;
+                if (!score[category][item]) {
+                    score[category][item] = 0;
                 }
-                results[category][item] += points[category][item];
+                score[category][item] += points[category][item];
             }
         }
     }
 
     const finalResults = {
-        race: getTopResult(results.race),
-        class: getTopResult(results.class),
-        subclass: getTopResult(results.subclass),
-        background: getTopResult(results.background)
+        race: getTopResult(score.race),
+        class: getTopResult(score.class),
+        subclass: getTopResult(score.subclass),
+        background: getTopResult(score.background)
     };
 
-    displayResults(finalResults, results);
+    displayResults(finalResults, score);
 }
 
 function getTopResult(resultCategory) {
@@ -138,3 +146,5 @@ function toggleMute(type) {
         document.getElementById('muteSFXButton').innerText = isSFXMuted ? '🔇' : '🔊';
     }
 }
+
+export { nextQuestion, submitQuiz, toggleMute };
