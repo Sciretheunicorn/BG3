@@ -45,11 +45,10 @@ footer {
 }
 
 #audioControls {
-    position: fixed;
-    top: 10px;
-    right: 10px;
     display: flex;
+    justify-content: center;
     gap: 10px;
+    margin-top: 20px;
 }
 
 #audioControls button {
